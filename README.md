@@ -5,6 +5,8 @@
 [![Korean](https://img.shields.io/badge/Language-Korean-blue)](https://github.com/your-username/var-generator)
 
 > 🚀 **200+ 단어 지원, 완전 오프라인 동작하는 한글 변수명 생성기**
+>
+> https://difains.github.io/var-generator/
 
 한글 단어를 영문 변수명으로 변환해주는 개발자 도구입니다. 네트워크 연결 없이도 완벽하게 동작하며, 3가지 알고리즘으로 다양한 네이밍 옵션을 제공합니다.
 
