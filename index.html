@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="한글을 영문 변수명으로 변환하는 개발자 도구. 200+ 단어 지원, 완전 오프라인 동작">
+    <meta name="keywords" content="변수명, 네이밍, 한글, 영어, 개발자, 도구, variable, naming">
+    <meta name="author" content="VAR Generator">
+    <title>VAR - 한글 변수명 생성기 (완전 오프라인)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <h1>VAR</h1>
+                <span class="tagline">한글 → 영문 변수명 생성기</span>
+                <div class="status-indicators">
+                    <div class="offline-badge">
+                        <span class="badge-icon">⚡</span>
+                        <span>100% 오프라인</span>
+                    </div>
+                    <div class="dict-badge">
+                        <span class="badge-icon">📚</span>
+                        <span id="dictSize">200+ 단어</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- 입력 섹션 -->
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="koreanInput" class="form-label">한글을 입력하세요</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="text" 
+                            id="koreanInput" 
+                            class="form-control input-field" 
+                            placeholder="예: 회원관리, 데이터베이스, 파일업로드"
+                            autocomplete="off"
+                        >
+                        <div class="input-info">
+                            <span id="charCount" class="char-count">0자</span>
+                            <span id="inputStatus" class="input-status"></span>
+                        </div>
+                    </div>
+                </div>
+                <button id="translateBtn" class="btn btn--primary translate-btn">
+                    <span class="btn-text">즉시 변환</span>
+                    <span class="btn-icon">🚀</span>
+                </button>
+            </div>
+
+            <!-- 추천 단어 섹션 -->
+            <div id="suggestionSection" class="suggestion-section hidden">
+                <div class="suggestion-header">
+                    <h3>💡 추천 단어</h3>
+                    <p>비슷한 단어나 대체어를 선택해주세요:</p>
+                </div>
+                <div id="suggestions" class="suggestions-grid"></div>
+            </div>
+
+            <!-- 결과 섹션 -->
+            <div id="resultsSection" class="results-section hidden">
+                <!-- 접두사/접미사 컨트롤 -->
+                <div class="prefix-controls">
+                    <h3>🔧 접두사/접미사 추가</h3>
+                    <div class="prefix-buttons">
+                        <div class="prefix-group">
+                            <label class="prefix-label">접두사:</label>
+                            <div class="button-group">
+                                <button class="prefix-btn" data-type="prefix" data-value="get">get</button>
+                                <button class="prefix-btn" data-type="prefix" data-value="set">set</button>
+                                <button class="prefix-btn" data-type="prefix" data-value="create">create</button>
+                                <button class="prefix-btn" data-type="prefix" data-value="update">update</button>
+                                <button class="prefix-btn" data-type="prefix" data-value="delete">delete</button>
+                                <button class="prefix-btn" data-type="prefix" data-value="find">find</button>
+                                <button class="prefix-btn" data-type="prefix" data-value="check">check</button>
+                                <button class="prefix-btn" data-type="prefix" data-value="is">is</button>
+                                <button class="prefix-btn" data-type="prefix" data-value="has">has</button>
+                            </div>
+                        </div>
+                        <div class="prefix-group">
+                            <label class="prefix-label">접미사:</label>
+                            <div class="button-group">
+                                <button class="prefix-btn" data-type="suffix" data-value="List">List</button>
+                                <button class="prefix-btn" data-type="suffix" data-value="Info">Info</button>
+                                <button class="prefix-btn" data-type="suffix" data-value="Data">Data</button>
+                                <button class="prefix-btn" data-type="suffix" data-value="Count">Count</button>
+                                <button class="prefix-btn" data-type="suffix" data-value="Status">Status</button>
+                                <button class="prefix-btn" data-type="suffix" data-value="Manager">Manager</button>
+                                <button class="prefix-btn" data-type="suffix" data-value="Service">Service</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 알고리즘 결과 -->
+                <div class="algorithm-results">
+                    <!-- Juno 알고리즘 -->
+                    <div class="algorithm-section" data-algorithm="juno">
+                        <div class="algorithm-header">
+                            <div class="algorithm-icon">🎯</div>
+                            <div class="algorithm-info">
+                                <h3>Juno</h3>
+                                <p>직역 알고리즘 - 한글을 직접적으로 영어로 번역</p>
+                            </div>
+                        </div>
+                        <div id="junoResults" class="algorithm-grid"></div>
+                    </div>
+
+                    <!-- Indigo 알고리즘 -->
+                    <div class="algorithm-section" data-algorithm="indigo">
+                        <div class="algorithm-header">
+                            <div class="algorithm-icon">🧠</div>
+                            <div class="algorithm-info">
+                                <h3>Indigo</h3>
+                                <p>문맥 알고리즘 - 맥락을 고려한 다양한 동의어 제공</p>
+                            </div>
+                        </div>
+                        <div id="indigoResults" class="algorithm-grid"></div>
+                    </div>
+
+                    <!-- Kepler 알고리즘 -->
+                    <div class="algorithm-section" data-algorithm="kepler">
+                        <div class="algorithm-header">
+                            <div class="algorithm-icon">⚡</div>
+                            <div class="algorithm-info">
+                                <h3>Kepler</h3>
+                                <p>약어 알고리즘 - 짧고 간결한 약어 형태 추천</p>
+                            </div>
+                        </div>
+                        <div id="keplerResults" class="algorithm-grid"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 히스토리 섹션 -->
+            <div class="history-section">
+                <div class="section-header">
+                    <h3>📝 최근 변환 히스토리</h3>
+                    <button id="clearHistory" class="btn btn--secondary">히스토리 삭제</button>
+                </div>
+                <div id="historyItems" class="history-items"></div>
+            </div>
+        </main>
+
+        <!-- 푸터 -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>© 2025 VAR Generator. 100% 오프라인 동작하는 한글 변수명 생성기</p>
+                    <p>🚀 200+ 단어 지원 | ⚡ 즉시 변환 | 📱 반응형 디자인</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+                    <a href="#" onclick="showInfo()">사용법</a>
+                    <a href="#" onclick="showAbout()">정보</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 토스트 알림 컨테이너 -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
