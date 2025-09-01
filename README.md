@@ -1,8 +1,8 @@
 # VAR - 한글 변수명 생성기
 
-[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-green)](https://your-username.github.io/var-generator)
+[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-green)](https://difains.github.io/var-generator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Korean](https://img.shields.io/badge/Language-Korean-blue)](https://github.com/your-username/var-generator)
+[![Korean](https://img.shields.io/badge/Language-Korean-blue)](https://github.com/difains/var-generator)
 
 > 🚀 **200+ 단어 지원, 완전 오프라인 동작하는 한글 변수명 생성기**
 >
@@ -83,7 +83,7 @@ cd var-generator
 git add .
 git commit -m "Initial commit: VAR Generator"
 git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/var-generator.git
+git remote add origin https://github.com/difains/var-generator.git
 git push -u origin main
 ```
 
@@ -94,13 +94,13 @@ git push -u origin main
 - Save 클릭
 
 3. **접속**
-- `https://YOUR_USERNAME.github.io/var-generator`
+- `https://difains.github.io/var-generator`
 
 ### 로컬 실행
 
 ```bash
 # 파일 다운로드
-git clone https://github.com/YOUR_USERNAME/var-generator.git
+git clone https://github.com/difains/var-generator.git
 cd var-generator
 
 # 로컬 서버 실행 (Python)
@@ -194,7 +194,7 @@ this.dictionary = {
 
 ## 📞 연락처
 
-프로젝트 링크: [https://github.com/YOUR_USERNAME/var-generator](https://github.com/YOUR_USERNAME/var-generator)
+프로젝트 링크: [https://github.com/difains/var-generator](https://github.com/difains/var-generator)
 
 ---
 
